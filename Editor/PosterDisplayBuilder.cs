@@ -37,7 +37,7 @@ namespace PosterDisplay
             Debug.Log($"[{nameof(PosterDisplayBuilder)}] Cleared textures for {count} PosterDisplayController instances.");
         }
 
-        public T[] FindComponentGlobal<T>() where T : Component
+        private T[] FindComponentGlobal<T>() where T : Component
         {
             T[] components = Object.FindObjectsOfType<T>(true);
             if (components.Length == 0)

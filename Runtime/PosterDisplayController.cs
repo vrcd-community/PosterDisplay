@@ -27,80 +27,79 @@ namespace PosterDisplay
         [SerializeField] public VRCUrl endpoint;
 
         [Tooltip("Duration for which each poster frame is displayed without transition, in seconds.")]
-        [SerializeField] private float durationStatic = 20.0f;
+        [SerializeField] public float durationStatic = 20.0f;
 
         [Tooltip("Duration for the ease transition, in seconds.")]
-        [SerializeField] private float durationEase = 0.5f;
+        [SerializeField] public float durationEase = 0.5f;
 
         [Tooltip("Number of columns in the poster grid.")]
-        [SerializeField] private int gridHorizontal = 4;
+        [SerializeField] public int gridHorizontal = 4;
 
         [Tooltip("Number of rows in the poster grid.")]
-        [SerializeField] private int gridVertical = 2;
+        [SerializeField] public int gridVertical = 2;
 
         [Tooltip("Whether to start downloading the poster image automatically when enabled.")]
-        [SerializeField] private bool startDownloadOnEnable = true;
+        [SerializeField] public bool startDownloadOnEnable = true;
 
         [Tooltip("Delay before starting the download, in seconds.")]
-        [SerializeField] private float downloadDelayOnEnable = 0.5f;
+        [SerializeField] public float downloadDelayOnEnable = 0.5f;
 
         [Tooltip("Renderer component to apply the poster texture to.")]
-        [SerializeField] private Renderer[] targetRenderers;
+        [SerializeField] public Renderer[] targetRenderers;
 
         [Tooltip("Time offsets for each poster image. If multiple offsets are provided, they will be applied in a round-robin fashion to the target materials. If left empty, no time offset will be applied.")]
-        [SerializeField] private float[] timeOffsets;
+        [SerializeField] public float[] timeOffsets;
 
         [Header("Material Settings")]
         [Space(10)]
 
         [Tooltip("Material slot index for the poster texture.")]
-        [SerializeField] private int materialSlotIndex = 0;
+        [SerializeField] public int materialSlotIndex = 0;
 
         [Tooltip("Material property name for the poster texture.")]
-        [SerializeField] private string posterTexPropName = "_MainTex";
+        [SerializeField] public string posterTexPropName = "_MainTex";
 
         [Tooltip("Material property name for the time offset.")]
-        [SerializeField] private string timeOffsetPropName = "_TimeOffset";
+        [SerializeField] public string timeOffsetPropName = "_TimeOffset";
 
         [Tooltip("Material property name for the static duration.")]
-        [SerializeField] private string durationStaticPropName = "_DurationStatic";
+        [SerializeField] public string durationStaticPropName = "_DurationStatic";
 
         [Tooltip("Material property name for the ease duration.")]
-        [SerializeField] private string durationEasePropName = "_DurationEase";
+        [SerializeField] public string durationEasePropName = "_DurationEase";
 
         [Tooltip("Material property name for the grid horizontal count.")]
-        [SerializeField] private string gridHorizontalPropName = "_GridHorizontal";
+        [SerializeField] public string gridHorizontalPropName = "_GridHorizontal";
 
         [Tooltip("Material property name for the grid vertical count.")]
-        [SerializeField] private string gridVerticalPropName = "_GridVertical";
+        [SerializeField] public string gridVerticalPropName = "_GridVertical";
 
         [Header("Animation Settings")]
         [Space(10)]
 
         [Tooltip("Animators to control for state changes. The specified animator parameters will be set on all of these animators when the state changes.")]
-        [SerializeField] private Animator[] animators;
+        [SerializeField] public Animator[] animators;
 
         [Tooltip("Animator parameter name for the Initializing state. This should be a boolean parameter that is true when the state is Initializing and false otherwise.")]
-        [SerializeField] private string animatorInitializingKey = "Initializing";
+        [SerializeField] public string animatorInitializingKey = "Initializing";
 
         [Tooltip("Animator parameter name for the Ready state. This should be a boolean parameter that is true when the state is Ready and false otherwise.")]
-        [SerializeField] private string animatorReadyKey = "Ready";
+        [SerializeField] public string animatorReadyKey = "Ready";
 
         [Tooltip("Animator parameter name for the Loading state. This should be a boolean parameter that is true when the state is Loading and false otherwise.")]
-        [SerializeField] private string animatorLoadingKey = "Loading";
+        [SerializeField] public string animatorLoadingKey = "Loading";
         
         [Tooltip("Animator parameter name for the Displaying state. This should be a boolean parameter that is true when the state is Displaying and false otherwise.")]
-        [SerializeField] private string animatorDisplayingKey = "Displaying";
+        [SerializeField] public string animatorDisplayingKey = "Displaying";
 
         [Tooltip("Animator parameter name for the Error state. This should be a boolean parameter that is true when the state is Error and false otherwise.")]
-        [SerializeField] private string animatorErrorKey = "Error";
+        [SerializeField] public string animatorErrorKey = "Error";
 
         private VRC.SDK3.Image.VRCImageDownloader downloader;
         private VRC.SDK3.Image.IVRCImageDownload downloadHandle;
 
         private Material[] targetMaterials;
         private int posterTexPropID;
-        private int timeOffsetPropID;
 
         public void OnEnable()
         {
@@ -112,7 +111,18 @@ namespace PosterDisplay
             Halt();
         }
 
-        private void Halt()
+        /// <summary>
+        /// Halts the controller by setting the state to Off and scheduling a reset after a short delay. <br/>
+        /// This is auto called when the controller is disabled. <br/>
+        /// 
+        /// </summary>
+        /// 
+        /// <remarks> 
+        /// This stop the controller gracefully with stopping visual (if any) <br/>
+        /// You may want to call <c>Reset</c> instead for an immediate stop without any stopping visual<br/>
+        /// 
+        /// </remarks> 
+        public void Halt()
         {
             SetState(PosterDisplayState.Off);
 
@@ -120,6 +130,17 @@ namespace PosterDisplay
             SendCustomEventDelayedSeconds(nameof(Reset), 1.0f);
         }
 
+        /// <summary>
+        /// Resets the controller by disposing of the current download handle and image downloader, <br/>
+        /// and clearing the poster texture from the target materials. <br/>
+        /// 
+        /// </summary>
+        /// 
+        /// <remarks> 
+        /// This stop the controller immediately and clean up resources. <br/>
+        /// You may want to call <c>Halt</c> instead for a graceful stopping visual<br/>
+        /// 
+        /// </remarks> 
         public void Reset()
         {
             if (downloadHandle != null)
@@ -137,6 +158,13 @@ namespace PosterDisplay
             }
         }
 
+        /// <summary>
+        /// Initializes the controller by setting up the image downloader, resolving target materials, and applying initial renderer settings. <br/>
+        /// If configured to start download on enable, it will also trigger the download process after an optional delay. <br/>
+        /// This is auto called when the controller is enabled. <br/>
+        /// You can also call this manually to re-initialize the controller if needed. <br/>
+        /// 
+        /// </summary>
         public void Initialize()
         {
             SetState(PosterDisplayState.Initializing);
@@ -169,6 +197,14 @@ namespace PosterDisplay
             }
         }
 
+        /// <summary>
+        /// Updates the renderer settings on the target materials based on the current configuration. <br/>
+        /// This includes setting the duration, grid, and time offset properties on the materials. <br/>
+        /// <br/>
+        /// This is called during initialization to apply the initial settings. <br/>
+        /// You can also call this manually if you change any of the related settings at runtime. <br/>
+        /// 
+        /// </summary>
         public void UpdateRendererSettings()
         {
             if (targetMaterials == null)
@@ -238,7 +274,7 @@ namespace PosterDisplay
             return results;
         }
 
-        public void StartDownload()
+        private void StartDownload()
         {
             if (endpoint == null)
                 return;
