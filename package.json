@@ -1,0 +1,28 @@
+{
+  "name": "cn.org.vrcd.poster-display",
+  "displayName": "Poster Display",
+  "version": "0.0.0",
+  "license": "MIT",
+  "unity": "2022.3",
+  "description": "Poster Display adds a simple way to display posters in your scene. It supports both static and animated posters, with customizable grid layout and transition effects.",
+  "author": {
+    "name": "VRCD Community",
+    "email": "us@vrcd.org.cn",
+    "url": "https://vrcd.org.cn"
+  },
+  "siteUrl": "https://github.com/vrcd-community/PosterDisplay",
+  "vpmDependencies": {
+  },
+  "legacyFolders": {
+  },
+  "unityPackageDestinationFolder": "Packages/cn.org.vrcd.poster-display",
+  "vccRepoCategory": "components",
+  "media": {
+    "previewImage": null,
+    "previewGif": null
+  },
+  "unityPackageDestinationFolderMetas": {
+    "Packages/cn.org.vrcd.poster-display": "4f231d4b7292dd41983dcd15b4e531cf"
+  },
+  "questCompatibility": "full"
+}
