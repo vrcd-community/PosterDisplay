@@ -13,8 +13,8 @@ jobs:
     runs-on: windows-latest
 
     env:
-      PACKAGE_NAME: com.wangqaq.test
-      PACKAGE_PATH: Packages/com.wangqaq.test
+      PACKAGE_NAME: cn.org.vrcd.poster-display
+      PACKAGE_PATH: Packages/cn.org.vrcd.poster-display
       OUTPUT_DIR: BuildOutput
 
     steps:
