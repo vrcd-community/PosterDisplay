@@ -1,0 +1,17 @@
+{
+  "name": "cn.org.vrcd.poster-display",
+  "version": "1.0.0",
+  "displayName": "PosterDisplay",
+  "description": "VRCD PosterDisplay",
+  "unity": "2022.3",
+  "author": {
+    "name": "VRCD",
+    "email": "us@vrcd.org.cn"
+  },
+  "dependencies": {
+  },
+  "unityPackageDestinationFolder": "Packages/cn.org.vrcd.poster-display",
+  "unityPackageDestinationFolderMetas": {
+    "Packages/cn.org.vrcd.poster-display": "718584b1-d432-4fa7-b2cd-f4c46852513d"
+  }
+}
