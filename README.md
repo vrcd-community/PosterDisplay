@@ -1,9 +1,5 @@
 # Poster Display
 
-## Known Issues
-
-- ORL shader module `PosterDisplay/Shader/ORL/ORL-Module-PosterDisplay.orlsource` contains absolute path reference to `Assets/Xuan25/PosterDisplay/Shader/Inc/PosterDisplay.cginc`, which can cause issues when the asset is located in a different path. Relative path is not used because the ORL compiler does not support it yet. We may need a workaround in the future for automated packaging and distribution or adjust the path once the package structure is finalized.
-
 ## Development
 
 ### 1. Configure Git for U# (Windows)

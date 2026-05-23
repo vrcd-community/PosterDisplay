@@ -3596,7 +3596,7 @@ _EaseAnimation ("Ease Animation", Int) = 7
             #if !defined(NEED_FRAGMENT_IN_SHADOW)
                 #define NEED_FRAGMENT_IN_SHADOW
             #endif
-            #include "Assets/Xuan25/PosterDisplay/Shader/Inc/PosterDisplay.cginc"
+            #include "Inc/PosterDisplay.cginc"
 
             // DataStructs
             struct VertexData
@@ -6440,7 +6440,7 @@ _EaseAnimation ("Ease Animation", Int) = 7
             #if !defined(NEED_FRAGMENT_IN_SHADOW)
                 #define NEED_FRAGMENT_IN_SHADOW
             #endif
-            #include "Assets/Xuan25/PosterDisplay/Shader/Inc/PosterDisplay.cginc"
+            #include "Inc/PosterDisplay.cginc"
 
             // DataStructs
             struct VertexData
@@ -9287,7 +9287,7 @@ _EaseAnimation ("Ease Animation", Int) = 7
             #if !defined(NEED_FRAGMENT_IN_SHADOW)
                 #define NEED_FRAGMENT_IN_SHADOW
             #endif
-            #include "Assets/Xuan25/PosterDisplay/Shader/Inc/PosterDisplay.cginc"
+            #include "Inc/PosterDisplay.cginc"
 
             // DataStructs
             struct VertexData
@@ -12143,7 +12143,7 @@ _EaseAnimation ("Ease Animation", Int) = 7
             #if !defined(NEED_FRAGMENT_IN_SHADOW)
                 #define NEED_FRAGMENT_IN_SHADOW
             #endif
-            #include "Assets/Xuan25/PosterDisplay/Shader/Inc/PosterDisplay.cginc"
+            #include "Inc/PosterDisplay.cginc"
 
             // DataStructs
             struct VertexData

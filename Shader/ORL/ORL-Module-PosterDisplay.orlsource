@@ -86,7 +86,7 @@
     float _Idling;
 }
 
-%CheckedInclude("Assets/Xuan25/PosterDisplay/Shader/Inc/PosterDisplay.cginc")
+%CheckedInclude("Packages/cn.org.vrcd.poster-display/Shader/Inc/PosterDisplay.cginc")
 
 %Fragment("PosterDisplayFragment")
 {
