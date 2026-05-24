@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 8422476114348016063}
   - component: {fileID: 4572626521783917170}
   - component: {fileID: 2368205863829214194}
-  - component: {fileID: 195575634783584110}
   m_Layer: 0
   m_Name: Display
   m_TagString: Untagged
@@ -84,28 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &195575634783584110
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 120571211066013852}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1199590719594051224
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,20 +274,29 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 1715787351655641487}
   endpoint:
     url: https://fscdn.imoe.xyz/poster/vrcd-poster.png
+  durationStatic: 20
+  durationEase: 0.5
+  gridHorizontal: 4
+  gridVertical: 2
+  startDownloadOnEnable: 1
+  downloadDelayOnEnable: 0.5
   targetRenderers:
   - {fileID: 2368205863829214194}
   timeOffsets: []
-  startDownloadOnEnable: 1
-  downloadDelayOnEnable: 0.5
   materialSlotIndex: 0
-  posterTexName: _MainTex
-  timeOffsetName: _TimeOffset
+  posterTexPropName: _MainTex
+  timeOffsetPropName: _TimeOffset
+  durationStaticPropName: _DurationStatic
+  durationEasePropName: _DurationEase
+  gridHorizontalPropName: _GridHorizontal
+  gridVerticalPropName: _GridVertical
   animators:
   - {fileID: 1353728632170564936}
   animatorInitializingKey: Initializing
   animatorReadyKey: Ready
   animatorLoadingKey: Loading
   animatorDisplayingKey: Displaying
+  animatorHaltingKey: Halting
   animatorErrorKey: Error
 --- !u!114 &1715787351655641487
 MonoBehaviour:
