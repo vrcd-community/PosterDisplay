@@ -100,6 +100,7 @@ namespace PosterDisplay
 
         private Material[] targetMaterials;
         private int posterTexPropID;
+        private PosterDisplayState currentState = PosterDisplayState.Off;
 
         public void OnEnable()
         {
@@ -127,7 +128,7 @@ namespace PosterDisplay
             SetState(PosterDisplayState.Off);
 
             // Delay the reset to ensure any state animations can complete before we dispose of the downloader and download handle.
-            SendCustomEventDelayedSeconds(nameof(Reset), 1.0f);
+            SendCustomEventDelayedSeconds(nameof(ResetIfOff), 1.0f);
         }
 
         /// <summary>
@@ -274,6 +275,16 @@ namespace PosterDisplay
             return results;
         }
 
+
+        // This method has to be public to be called by SendCustomEventDelayedSeconds, but it should not be called directly by users.
+        public void ResetIfOff()
+        {
+            if (currentState == PosterDisplayState.Off)
+            {
+                Reset();
+            }
+        }
+
         // This method has to be public to be called by SendCustomEventDelayedSeconds, but it should not be called directly by users.
         public void StartDownload()
         {
@@ -289,6 +300,13 @@ namespace PosterDisplay
                 Debug.Log($"[{nameof(PosterDisplay)}] Disposing previous download handle. GameObject: {gameObject.name}");
                 downloadHandle.Dispose();
                 downloadHandle = null;
+            }
+
+            if (downloader == null)
+            {
+                Debug.LogError($"[{nameof(PosterDisplay)}] Image downloader is not initialized. Cannot start download. GameObject: {gameObject.name}");
+                SetState(PosterDisplayState.Error);
+                return;
             }
 
             VRC.SDK3.Image.TextureInfo textureInfo = new VRC.SDK3.Image.TextureInfo();
@@ -343,6 +361,8 @@ namespace PosterDisplay
 
         private void SetState(PosterDisplayState state)
         {
+            currentState = state;
+            
             if (animators == null)
                 return;
 
