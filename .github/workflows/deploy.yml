@@ -108,7 +108,7 @@ jobs:
       - name: Checkout Index Repo
         uses: actions/checkout@v4
         with:
-          repository: 'vrcd-community/VPMIndexTest'
+          repository: 'vrcd-community/vpm-index'
           token: ${{ secrets.INDEX_REPO_PAT }}
           path: ./IndexRepo
 
