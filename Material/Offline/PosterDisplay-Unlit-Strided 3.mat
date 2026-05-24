@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PosterDisplay-Unlit 1
+  m_Name: PosterDisplay-Unlit-Strided 3
   m_Shader: {fileID: 4800000, guid: c8dc92a5b1c6358a8a095347ce996419, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - _EASEANIMATION_SLIDERIGHT
-  - _EASEANIMATION_ZOOMIN
+  - _EASEANIMATION_SLIDETOBOTTOM
   - _EASEFUNCTION_EASEINOUTCIRC
   - _IDLEBLENDMODE_MASK
   - _IDLEEASEMODE_MASK
@@ -89,7 +89,7 @@ Material:
     - _DstBlend: 0
     - _DurationEase: 0.5
     - _DurationStatic: 1
-    - _EaseAnimation: 6
+    - _EaseAnimation: 3
     - _EaseFunction: 20
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -109,8 +109,8 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _Stride: 1
-    - _TimeOffset: -1.1
+    - _Stride: 4
+    - _TimeOffset: -3.3
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
