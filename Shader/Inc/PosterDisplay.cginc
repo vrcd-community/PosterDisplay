@@ -1,7 +1,39 @@
 #include "EaseFunctions.cginc"
 #include "EaseAnimations.cginc"
+#include "EaseBlend.cginc"
 
-fixed4 GetPosterColor(float2 uv, float timeOffset, float durationStatic, float durationEase, int gridHorizontal, int gridVertical, float cellMargin, int easeFunction, int easeAnimation, sampler2D mainTex, float4 mainTex_ST, float4 mainTint, sampler2D idleTex, float4 idleTex_ST, float4 idleTint, float idling) {
+fixed4 GetPosterColor(
+    float2 uv, 
+    float timeOffset, 
+    float durationStatic, 
+    float durationEase, 
+    int gridHorizontal, 
+    int gridVertical, 
+    float cellMargin, 
+    int easeFunction, 
+    int easeAnimation, 
+    sampler2D mainTex, 
+    float4 mainTex_ST, 
+    float4 mainTint, 
+    sampler2D idleTex, 
+    float4 idleTex_ST, 
+    float4 idleTint, 
+    float idling,
+    int idleBlendMode,
+    sampler2D idleBlendMaskTex,
+    float4 idleBlendMaskTex_ST,
+    float idleBlendMaskFeather) {
+
+    if (idling == 1.0)
+    {
+        // if fully idling, skip animation and just show the idling texture
+        float2 uvIdling = uv * idleTex_ST.xy + idleTex_ST.zw;
+        uvIdling = saturate(uvIdling);
+        fixed4 colIdling = tex2D(idleTex, uvIdling);
+        colIdling *= idleTint;
+        return colIdling;
+    }
+
     // Resolve current/next frame indices from time.
     float durationPerFrame = durationStatic + durationEase;
     float time = _Time.y + timeOffset * durationPerFrame;
@@ -59,7 +91,8 @@ fixed4 GetPosterColor(float2 uv, float timeOffset, float durationStatic, float d
         uvIdling = saturate(uvIdling);
         fixed4 colIdling = tex2D(idleTex, uvIdling);
         colIdling *= idleTint;
-        col = lerp(col, colIdling, idling);
+
+        col = EaseBlend(col, colIdling, idling, idleBlendMode, uv, idleBlendMaskTex, idleBlendMaskTex_ST, idleBlendMaskFeather);
     }
 
     return col;

@@ -60,6 +60,15 @@ Shader "Xuan25/PosterDisplay/Unlit"
         _IdleTex ("Idle Texture", 2D) = "black" {}
         _IdleTint ("Idle Tint", Color) = (1,1,1,1)
         _Idling ("Idling", Range(0,1)) = 0.0
+
+        // all the idle ease modes
+        // 0: lerp
+        // 1: mask
+        [KeywordEnum(Lerp, Mask)]
+        _IdleEaseMode ("Idle Ease Mode", Int) = 0
+
+        _IdleEaseMaskTex ("Idle Ease Mask Texture", 2D) = "white" {}
+        _IdleEaseMaskFeather ("Idle Ease Mask Feather", Float) = 0.1
     }
     SubShader
     {
@@ -111,6 +120,11 @@ Shader "Xuan25/PosterDisplay/Unlit"
             float4 _IdleTint;
             
             float _Idling;
+            int _IdleEaseMode;
+
+            sampler2D _IdleEaseMaskTex;
+            float4 _IdleEaseMaskTex_ST;
+            float _IdleEaseMaskFeather;
 
             v2f vert (appdata v)
             {
@@ -135,7 +149,11 @@ Shader "Xuan25/PosterDisplay/Unlit"
                     _EaseAnimation,
                     _MainTex, _MainTex_ST, _MainTint,
                     _IdleTex, _IdleTex_ST, _IdleTint,
-                    _Idling
+                    _Idling, 
+                    _IdleEaseMode, 
+                    _IdleEaseMaskTex, 
+                    _IdleEaseMaskTex_ST, 
+                    _IdleEaseMaskFeather
                 );
 
                 // apply fog

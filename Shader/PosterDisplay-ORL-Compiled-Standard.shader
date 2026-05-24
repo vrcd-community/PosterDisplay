@@ -91,6 +91,10 @@ _EaseAnimation ("Ease Animation", Int) = 7
         _IdleTex ("Idle Texture", 2D) = "black" {}
         _IdleTint ("Idle Tint", Color) = (1,1,1,1)
         _Idling ("Idling", Range(0,1)) = 0.0
+        [KeywordEnum(Lerp, Mask)]
+_IdleEaseMode ("Idle Ease Mode", Int) = 0
+        _IdleEaseMaskTex ("Idle Ease Mask Texture", 2D) = "white" {}
+        _IdleEaseMaskFeather ("Idle Ease Mask Feather", Float) = 0.1
         UI_ShadingModeHeader("# Shading Mode", Int) = 0
         [KeywordEnum(Default, Cloth)]SHADING_MODE("Shading Mode", Int) = 0
         [Toggle(CLEARCOAT)]_ClearCoat("Add Clear Coat %ShowIf(SHADING_MODE_DEFAULT)", Int) = 0
@@ -3976,6 +3980,10 @@ _EaseAnimation ("Ease Animation", Int) = 7
             float4 _IdleTex_ST;
             float4 _IdleTint;
             float _Idling;
+            int _IdleEaseMode;
+            sampler2D _IdleEaseMaskTex;
+            float4 _IdleEaseMaskTex_ST;
+            float _IdleEaseMaskFeather;
             #if defined(BAKERY_ENABLED)
                 #if defined(BAKERY_RNM) || defined(BAKERY_SH)
             float4 _RNM0_TexelSize;
@@ -5331,7 +5339,11 @@ _EaseAnimation ("Ease Animation", Int) = 7
                     _EaseAnimation,
                     _PosterTex, _PosterTex_ST, _PosterTint,
                     _IdleTex, _IdleTex_ST, _IdleTint,
-                    _Idling
+                    _Idling, 
+                    _IdleEaseMode, 
+                    _IdleEaseMaskTex, 
+                    _IdleEaseMaskTex_ST, 
+                    _IdleEaseMaskFeather
                 );
             
                 o.Albedo *= col;
@@ -6820,6 +6832,10 @@ _EaseAnimation ("Ease Animation", Int) = 7
             float4 _IdleTex_ST;
             float4 _IdleTint;
             float _Idling;
+            int _IdleEaseMode;
+            sampler2D _IdleEaseMaskTex;
+            float4 _IdleEaseMaskTex_ST;
+            float _IdleEaseMaskFeather;
             #if defined(BAKERY_ENABLED)
                 #if defined(BAKERY_RNM) || defined(BAKERY_SH)
             float4 _RNM0_TexelSize;
@@ -8175,7 +8191,11 @@ _EaseAnimation ("Ease Animation", Int) = 7
                     _EaseAnimation,
                     _PosterTex, _PosterTex_ST, _PosterTint,
                     _IdleTex, _IdleTex_ST, _IdleTint,
-                    _Idling
+                    _Idling, 
+                    _IdleEaseMode, 
+                    _IdleEaseMaskTex, 
+                    _IdleEaseMaskTex_ST, 
+                    _IdleEaseMaskFeather
                 );
             
                 o.Albedo *= col;
@@ -9669,6 +9689,10 @@ _EaseAnimation ("Ease Animation", Int) = 7
             float4 _IdleTex_ST;
             float4 _IdleTint;
             float _Idling;
+            int _IdleEaseMode;
+            sampler2D _IdleEaseMaskTex;
+            float4 _IdleEaseMaskTex_ST;
+            float _IdleEaseMaskFeather;
             #if defined(BAKERY_ENABLED)
                 #if defined(BAKERY_RNM) || defined(BAKERY_SH)
             float4 _RNM0_TexelSize;
@@ -11024,7 +11048,11 @@ _EaseAnimation ("Ease Animation", Int) = 7
                     _EaseAnimation,
                     _PosterTex, _PosterTex_ST, _PosterTint,
                     _IdleTex, _IdleTex_ST, _IdleTint,
-                    _Idling
+                    _Idling, 
+                    _IdleEaseMode, 
+                    _IdleEaseMaskTex, 
+                    _IdleEaseMaskTex_ST, 
+                    _IdleEaseMaskFeather
                 );
             
                 o.Albedo *= col;
@@ -12525,6 +12553,10 @@ _EaseAnimation ("Ease Animation", Int) = 7
             float4 _IdleTex_ST;
             float4 _IdleTint;
             float _Idling;
+            int _IdleEaseMode;
+            sampler2D _IdleEaseMaskTex;
+            float4 _IdleEaseMaskTex_ST;
+            float _IdleEaseMaskFeather;
             #if defined(BAKERY_ENABLED)
                 #if defined(BAKERY_RNM) || defined(BAKERY_SH)
             float4 _RNM0_TexelSize;
@@ -13880,7 +13912,11 @@ _EaseAnimation ("Ease Animation", Int) = 7
                     _EaseAnimation,
                     _PosterTex, _PosterTex_ST, _PosterTint,
                     _IdleTex, _IdleTex_ST, _IdleTint,
-                    _Idling
+                    _Idling, 
+                    _IdleEaseMode, 
+                    _IdleEaseMaskTex, 
+                    _IdleEaseMaskTex_ST, 
+                    _IdleEaseMaskFeather
                 );
             
                 o.Albedo *= col;
