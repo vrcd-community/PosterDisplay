@@ -2,6 +2,8 @@
 #include "EaseAnimations.cginc"
 #include "EaseBlend.cginc"
 
+#define glsl_mod(x,y) (((x)-(y)*floor((x)/(y))))
+
 fixed4 GetPosterColor(
     float2 uv, 
     float timeOffset, 
@@ -42,12 +44,12 @@ fixed4 GetPosterColor(
 
     float durationCycle = durationPerFrame * numFrames;
 
-    float timeInCycle = fmod(time, durationCycle);
+    float timeInCycle = glsl_mod(time, durationCycle);
 
     uint fromFrame = (uint)(timeInCycle / durationPerFrame);
     uint toFrame = (fromFrame + 1) % numFrames;
 
-    float timeInFrame = fmod(timeInCycle, durationPerFrame);
+    float timeInFrame = glsl_mod(timeInCycle, durationPerFrame);
 
     // Ease factor goes 0..1 during the ease window, then stays at 1 during the static window.
     float easeRatio = (durationEase > 0.0001) ? saturate(timeInFrame / durationEase) : 1.0;
