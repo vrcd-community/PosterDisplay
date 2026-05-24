@@ -82,6 +82,7 @@ Shader "Xuan25/PosterDisplay/ORL-Compiled/Uber"
         _DurationEase ("Ease Duration", Float) = 0.5
         _GridHorizontal ("Grid Horizontal", Int) = 4
         _GridVertical ("Grid Vertical", Int) = 2
+        _Stride ("Stride", Int) = 1
         _CellMargin ("Cell Margin", Float) = 0.01
         [KeywordEnum(easeInSine, easeOutSine, easeInOutSine, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic, easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart, easeInQuint, easeOutQuint, easeInOutQuint, easeInExpo, easeOutExpo, easeInOutExpo, easeInCirc, easeOutCirc, easeInOutCirc, easeInBack, easeOutBack, easeInOutBack, easeInElastic, easeOutElastic, easeInOutElastic, easeInBounce, easeOutBounce, easeInOutBounce)]
 _EaseFunction ("Ease Function", Int) = 20
@@ -4759,6 +4760,7 @@ _IdleEaseMode ("Idle Ease Mode", Int) = 0
             float _TimeOffset;
             int _GridHorizontal;
             int _GridVertical;
+            int _Stride;
             float _CellMargin;
             int _EaseFunction;
             int _EaseAnimation;
@@ -6181,6 +6183,7 @@ _IdleEaseMode ("Idle Ease Mode", Int) = 0
                     _DurationEase,
                     _GridHorizontal,
                     _GridVertical,
+                    _Stride,
                     _CellMargin,
                     _EaseFunction,
                     _EaseAnimation,
@@ -7911,6 +7914,7 @@ _IdleEaseMode ("Idle Ease Mode", Int) = 0
             float _TimeOffset;
             int _GridHorizontal;
             int _GridVertical;
+            int _Stride;
             float _CellMargin;
             int _EaseFunction;
             int _EaseAnimation;
@@ -9333,6 +9337,7 @@ _IdleEaseMode ("Idle Ease Mode", Int) = 0
                     _DurationEase,
                     _GridHorizontal,
                     _GridVertical,
+                    _Stride,
                     _CellMargin,
                     _EaseFunction,
                     _EaseAnimation,
@@ -11068,6 +11073,7 @@ _IdleEaseMode ("Idle Ease Mode", Int) = 0
             float _TimeOffset;
             int _GridHorizontal;
             int _GridVertical;
+            int _Stride;
             float _CellMargin;
             int _EaseFunction;
             int _EaseAnimation;
@@ -12490,6 +12496,7 @@ _IdleEaseMode ("Idle Ease Mode", Int) = 0
                     _DurationEase,
                     _GridHorizontal,
                     _GridVertical,
+                    _Stride,
                     _CellMargin,
                     _EaseFunction,
                     _EaseAnimation,
@@ -14232,6 +14239,7 @@ _IdleEaseMode ("Idle Ease Mode", Int) = 0
             float _TimeOffset;
             int _GridHorizontal;
             int _GridVertical;
+            int _Stride;
             float _CellMargin;
             int _EaseFunction;
             int _EaseAnimation;
@@ -15654,6 +15662,7 @@ _IdleEaseMode ("Idle Ease Mode", Int) = 0
                     _DurationEase,
                     _GridHorizontal,
                     _GridVertical,
+                    _Stride,
                     _CellMargin,
                     _EaseFunction,
                     _EaseAnimation,

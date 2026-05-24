@@ -8,6 +8,7 @@ Shader "Xuan25/PosterDisplay/Unlit"
         _DurationEase ("Ease Duration", Float) = 0.5
         _GridHorizontal ("Grid Horizontal", Int) = 4
         _GridVertical ("Grid Vertical", Int) = 2
+        _Stride ("Stride", Int) = 1
         _CellMargin ("Cell Margin", Float) = 0.01
         // all the ease functions
         // 0: easeInSine
@@ -110,6 +111,7 @@ Shader "Xuan25/PosterDisplay/Unlit"
 
             int _GridHorizontal;
             int _GridVertical;
+            int _Stride;
             float _CellMargin;
 
             int _EaseFunction;
@@ -144,6 +146,7 @@ Shader "Xuan25/PosterDisplay/Unlit"
                     _DurationEase,
                     _GridHorizontal,
                     _GridVertical,
+                    _Stride,
                     _CellMargin,
                     _EaseFunction,
                     _EaseAnimation,

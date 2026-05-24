@@ -11,6 +11,7 @@ fixed4 GetPosterColor(
     float durationEase, 
     int gridHorizontal, 
     int gridVertical, 
+    int stride, 
     float cellMargin, 
     int easeFunction, 
     int easeAnimation, 
@@ -37,8 +38,11 @@ fixed4 GetPosterColor(
     }
 
     // Resolve current/next frame indices from time.
+    int frameOffset = timeOffset;
+    float durationOffsetWithinFrame = timeOffset % 1.0; // fractional part of timeOffset for blending
+
     float durationPerFrame = durationStatic + durationEase;
-    float time = _Time.y + timeOffset * durationPerFrame;
+    float time = _Time.y + durationOffsetWithinFrame * durationPerFrame;
     
     int numFrames = gridHorizontal * gridVertical;
 
@@ -48,6 +52,10 @@ fixed4 GetPosterColor(
 
     uint fromFrame = (uint)(timeInCycle / durationPerFrame);
     uint toFrame = (fromFrame + 1) % numFrames;
+
+    // Apply stride to frame indices
+    fromFrame = (fromFrame * stride + frameOffset) % numFrames;
+    toFrame = (toFrame * stride + frameOffset) % numFrames;
 
     float timeInFrame = glsl_mod(timeInCycle, durationPerFrame);
 
