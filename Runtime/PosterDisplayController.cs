@@ -274,7 +274,8 @@ namespace PosterDisplay
             return results;
         }
 
-        private void StartDownload()
+        // This method has to be public to be called by SendCustomEventDelayedSeconds, but it should not be called directly by users.
+        public void StartDownload()
         {
             if (endpoint == null)
                 return;
