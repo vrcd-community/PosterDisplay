@@ -14,6 +14,7 @@ namespace PosterDisplay
         Ready,
         Loading,
         Displaying,
+        Halting,
         Error
     }
 
@@ -92,6 +93,9 @@ namespace PosterDisplay
         [Tooltip("Animator parameter name for the Displaying state. This should be a boolean parameter that is true when the state is Displaying and false otherwise.")]
         [SerializeField] public string animatorDisplayingKey = "Displaying";
 
+        [Tooltip("Animator parameter name for the Halting state. This should be a boolean parameter that is true when the state is Halting and false otherwise.")]
+        [SerializeField] public string animatorHaltingKey = "Halting";
+
         [Tooltip("Animator parameter name for the Error state. This should be a boolean parameter that is true when the state is Error and false otherwise.")]
         [SerializeField] public string animatorErrorKey = "Error";
 
@@ -113,7 +117,7 @@ namespace PosterDisplay
         }
 
         /// <summary>
-        /// Halts the controller by setting the state to Off and scheduling a reset after a short delay. <br/>
+        /// Halts the controller by setting the state to Halting and scheduling a reset after a short delay. <br/>
         /// This is auto called when the controller is disabled. <br/>
         /// 
         /// </summary>
@@ -125,10 +129,10 @@ namespace PosterDisplay
         /// </remarks> 
         public void Halt()
         {
-            SetState(PosterDisplayState.Off);
+            SetState(PosterDisplayState.Halting);
 
             // Delay the reset to ensure any state animations can complete before we dispose of the downloader and download handle.
-            SendCustomEventDelayedSeconds(nameof(ResetIfOff), 1.0f);
+            SendCustomEventDelayedSeconds(nameof(HaltIfPending), 1.0f);
         }
 
         /// <summary>
@@ -277,10 +281,11 @@ namespace PosterDisplay
 
 
         // This method has to be public to be called by SendCustomEventDelayedSeconds, but it should not be called directly by users.
-        public void ResetIfOff()
+        public void HaltIfPending()
         {
-            if (currentState == PosterDisplayState.Off)
+            if (currentState == PosterDisplayState.Halting)
             {
+                SetState(PosterDisplayState.Off);
                 Reset();
             }
         }
@@ -288,6 +293,12 @@ namespace PosterDisplay
         // This method has to be public to be called by SendCustomEventDelayedSeconds, but it should not be called directly by users.
         public void StartDownload()
         {
+            if (currentState != PosterDisplayState.Initializing && currentState != PosterDisplayState.Ready)
+            {
+                Debug.LogWarning($"[{nameof(PosterDisplay)}] StartDownload called but current state is expired: {currentState}. Ignoring. GameObject: {gameObject.name}");
+                return;
+            }
+
             if (endpoint == null)
                 return;
 
@@ -329,6 +340,13 @@ namespace PosterDisplay
                 return;
             }
 
+            if (currentState != PosterDisplayState.Loading)
+            {
+                Debug.LogWarning($"[{nameof(PosterDisplay)}] Received download success for a download that is expired or already handled. Ignoring. GameObject: {gameObject.name}");
+                result.Dispose();
+                return;
+            }
+
             Debug.Log($"[{nameof(PosterDisplay)}] Successfully downloaded poster image from URL: {endpoint}. GameObject: {gameObject.name}");
 
             if (targetMaterials == null)
@@ -352,9 +370,15 @@ namespace PosterDisplay
 
         public override void OnImageLoadError(VRC.SDK3.Image.IVRCImageDownload result)
         {
-            Debug.LogError($"[{nameof(PosterDisplay)}] Failed to download image from URL: {endpoint}. Reason: {result.ErrorMessage}. GameObject: {gameObject.name}");
             result.Dispose();
 
+            if (currentState != PosterDisplayState.Loading)
+            {
+                Debug.LogWarning($"[{nameof(PosterDisplay)}] Received download error for a download that is expired or already handled. Ignoring. GameObject: {gameObject.name}");
+                return;
+            }
+
+            Debug.LogError($"[{nameof(PosterDisplay)}] Failed to download image from URL: {endpoint}. Reason: {result.ErrorMessage}. GameObject: {gameObject.name}");
             SetState(PosterDisplayState.Error);
         }
 
@@ -362,7 +386,7 @@ namespace PosterDisplay
         private void SetState(PosterDisplayState state)
         {
             currentState = state;
-            
+
             if (animators == null)
                 return;
 
@@ -375,6 +399,7 @@ namespace PosterDisplay
                 animator.SetBool(animatorReadyKey, state == PosterDisplayState.Ready);
                 animator.SetBool(animatorLoadingKey, state == PosterDisplayState.Loading);
                 animator.SetBool(animatorDisplayingKey, state == PosterDisplayState.Displaying);
+                animator.SetBool(animatorHaltingKey, state == PosterDisplayState.Halting);
                 animator.SetBool(animatorErrorKey, state == PosterDisplayState.Error);
             }
         }
