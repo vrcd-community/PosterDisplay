@@ -33,6 +33,9 @@ namespace PosterDisplay
         [Tooltip("Duration for the ease transition, in seconds.")]
         [SerializeField] public float durationEase = 0.5f;
 
+        [Tooltip("Stride for the poster to show in the grid. A stride of 1 means every poster will be shown in order, a stride of 2 means every other poster will be shown, etc.")]
+        [SerializeField] public int stride = 1;
+
         [Tooltip("Number of columns in the poster grid.")]
         [SerializeField] public int gridHorizontal = 4;
 
@@ -68,6 +71,9 @@ namespace PosterDisplay
 
         [Tooltip("Material property name for the ease duration.")]
         [SerializeField] public string durationEasePropName = "_DurationEase";
+
+        [Tooltip("Material property name for the stride.")]
+        [SerializeField] public string stridePropName = "_Stride";
 
         [Tooltip("Material property name for the grid horizontal count.")]
         [SerializeField] public string gridHorizontalPropName = "_GridHorizontal";
@@ -217,6 +223,7 @@ namespace PosterDisplay
 
             int durationStaticPropID = VRCShader.PropertyToID(durationStaticPropName);
             int durationEasePropID = VRCShader.PropertyToID(durationEasePropName);
+            int stridePropID = VRCShader.PropertyToID(stridePropName);
             int gridHorizontalPropID = VRCShader.PropertyToID(gridHorizontalPropName);
             int gridVerticalPropID = VRCShader.PropertyToID(gridVerticalPropName);
             int timeOffsetPropID = VRCShader.PropertyToID(timeOffsetPropName);
@@ -230,6 +237,7 @@ namespace PosterDisplay
 
                 targetMaterials[i].SetFloat(durationStaticPropID, durationStatic);
                 targetMaterials[i].SetFloat(durationEasePropID, durationEase);
+                targetMaterials[i].SetInt(stridePropID, stride);
                 targetMaterials[i].SetInt(gridHorizontalPropID, gridHorizontal);
                 targetMaterials[i].SetInt(gridVerticalPropID, gridVertical);
 
