@@ -105,7 +105,75 @@ jobs:
           path: ${{ steps.create_packages.outputs.serverPackageJsonPath }}
           retention-days: ${{ env.ARTIFACT_DURATION }} 
 
-      # - name: Send package info to a server
-      #   run: |
-      #     curl -X POST -H "Content-Type: application/json" -H "Api-Key: ${{ secrets.LISTINGS_API_KEY }}" --data @${{ steps.create_packages.outputs.serverPackageJsonPath }} ${{ env.UPLOAD_ENDPOINT }} || exit 0
-      #   shell: bash
+      - name: Checkout Index Repo
+        uses: actions/checkout@v4
+        with:
+          repository: 'vrcd-community/VPMIndexTest'
+          token: ${{ secrets.INDEX_REPO_PAT }}
+          path: ./IndexRepo
+
+      - name: Update VPM index.json
+        run: |
+          python3 -c '
+          import json
+          import os
+
+          pkg_json_path = "./Checkout/${{ inputs.ASSETS_PATH }}/package.json"
+          server_json_path = "${{ steps.create_packages.outputs.serverPackageJsonPath }}"
+          index_json_path = "./IndexRepo/index.json"
+
+          with open(pkg_json_path, "r", encoding="utf-8") as f:
+              pkg_data = json.load(f)
+
+          with open(server_json_path, "r", encoding="utf-8") as f:
+              server_data = json.load(f)
+
+          with open(index_json_path, "r", encoding="utf-8") as f:
+              index_data = json.load(f)
+
+          version_str = server_data.get("version")
+
+          new_version_info = {
+              "name": server_data.get("name"),
+              "displayName": server_data.get("displayName"),
+              "version": version_str,
+              "author": server_data.get("author"),
+              "unity": server_data.get("unity"),
+              "description": server_data.get("description"),
+              "url": server_data.get("url"),
+              "zipSHA256": server_data.get("zipSHA256")
+          }
+
+          if "vpmDependencies" in pkg_data:
+              new_version_info["vpmDependencies"] = pkg_data["vpmDependencies"]
+          elif "dependencies" in server_data:
+              new_version_info["vpmDependencies"] = server_data["dependencies"]
+          else:
+              new_version_info["vpmDependencies"] = {}
+
+          for legacy_key in ["legacyFolders", "legacyFiles", "legacyPackages"]:
+              if legacy_key in pkg_data:
+                  new_version_info[legacy_key] = pkg_data[legacy_key]
+
+          pkg_name = new_version_info["name"]
+
+          if "packages" not in index_data:
+              index_data["packages"] = {}
+
+          if pkg_name not in index_data["packages"]:
+              index_data["packages"][pkg_name] = {"versions": {}}
+
+          index_data["packages"][pkg_name]["versions"][version_str] = new_version_info
+
+          with open(index_json_path, "w", encoding="utf-8") as f:
+              json.dump(index_data, f, indent=2, ensure_ascii=False)
+          print("Successfully integrated package data into index.json")
+          '
+
+      - name: Push index.json to Index Repo
+        run: |
+          cd ./IndexRepo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update VPM version ${{ steps.job_data.outputs.version }} for ${ { steps.job_data.outputs.package_name } }" && git push)
