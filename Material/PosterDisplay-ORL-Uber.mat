@@ -12,7 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - AL_EFFECT_BAND_SELECTION
+  - AL_EFFECT_PULSE
   - BAKERY_SHNONLINEAR
   - DETAILS_MODE_SEPARATED
   - GSAA
@@ -174,7 +174,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - AL_EFFECT: 0
+    - AL_EFFECT: 3
     - BAKERY: 0
     - DETAILS_MODE: 1
     - INTERNAL_MaterialShaderVersion: 0
@@ -186,7 +186,7 @@ Material:
     - UI_AdvancedSettingsStancilHeader: 0
     - UI_ApplyColorCorrectionNote: 0
     - UI_AudioLinkDocs: 0
-    - UI_AudioLinkHeader: 0
+    - UI_AudioLinkHeader: 1
     - UI_AudioLinkThanksNote: 0
     - UI_BakedSpecularOcclusionNote: 0
     - UI_BakeryHeader: 0
@@ -367,6 +367,7 @@ Material:
     - _StencilPassOp: 0
     - _StencilRef: 0
     - _StencilZFailOp: 0
+    - _Stride: 1
     - _TimeOffset: 0
     - _UVFlipXY: 0
     - _UVHistoryRange: 128
