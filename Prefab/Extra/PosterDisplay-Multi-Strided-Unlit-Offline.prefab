@@ -13,40 +13,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: fc6a2f11ff5ba1ea6a4115dbdbe63355, type: 2}
     - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2218593027098116621, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -66,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 3d34603dbfabb62adb9f211f02978ade, type: 2}
     - target: {fileID: 7601293647059221879, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
       propertyPath: m_Name
-      value: PosterDisplayMulti-Offline-Strided Variant
+      value: PosterDisplay-Multi-Unlit-Strided-Offline
       objectReference: {fileID: 0}
     - target: {fileID: 7907535333346105520, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
       propertyPath: m_Materials.Array.data[0]

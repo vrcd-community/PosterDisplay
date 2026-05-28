@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6026013049242648668}
   m_Layer: 0
-  m_Name: PosterDisplayMulti
+  m_Name: PosterDisplay-Multi-Unlit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 2600701405082189606}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -94,6 +94,13 @@ MonoBehaviour:
   _udonSharpBackingUdonBehaviour: {fileID: 3551322485950395117}
   endpoint:
     url: https://fscdn.imoe.xyz/poster/vrcd-poster.png
+  durationStatic: 20
+  durationEase: 0.5
+  stride: 1
+  gridHorizontal: 4
+  gridVertical: 2
+  startDownloadOnEnable: 1
+  downloadDelayOnEnable: 0.5
   targetRenderers:
   - {fileID: 522613562883474207}
   - {fileID: 8733693901322413443}
@@ -106,11 +113,14 @@ MonoBehaviour:
   - -2.02
   - -3.03
   - -4.04
-  startDownloadOnEnable: 1
-  downloadDelayOnEnable: 0.5
   materialSlotIndex: 0
-  posterTexName: _MainTex
-  timeOffsetName: _TimeOffset
+  posterTexPropName: _MainTex
+  timeOffsetPropName: _TimeOffset
+  durationStaticPropName: _DurationStatic
+  durationEasePropName: _DurationEase
+  stridePropName: _Stride
+  gridHorizontalPropName: _GridHorizontal
+  gridVerticalPropName: _GridVertical
   animators:
   - {fileID: 3842790868855315877}
   - {fileID: 5413529061485296441}
@@ -121,6 +131,7 @@ MonoBehaviour:
   animatorReadyKey: Ready
   animatorLoadingKey: Loading
   animatorDisplayingKey: Displaying
+  animatorHaltingKey: Halting
   animatorErrorKey: Error
 --- !u!114 &3551322485950395117
 MonoBehaviour:

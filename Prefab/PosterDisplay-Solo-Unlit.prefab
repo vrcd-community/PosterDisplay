@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8244091299953640548
+--- !u!1 &216071646407030518
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,63 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1540242627988766598}
-  - component: {fileID: 4636541878755320078}
-  - component: {fileID: 6939995606103364027}
-  - component: {fileID: 7942168358535608914}
+  - component: {fileID: 1418529353836129399}
+  - component: {fileID: 143473266494293667}
+  - component: {fileID: 1328035329285933430}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1540242627988766598
+--- !u!4 &1418529353836129399
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8244091299953640548}
+  m_GameObject: {fileID: 216071646407030518}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6325487267637736088}
+  m_Father: {fileID: 1806783479849241476}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4636541878755320078
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8244091299953640548}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 2, y: 1, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6939995606103364027
+--- !u!114 &143473266494293667
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8244091299953640548}
+  m_GameObject: {fileID: 216071646407030518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25cc4e78e49ead140b8b84955bd983f4, type: 3}
+  m_Script: {fileID: 11500000, guid: 65b91523274a804eb9e72b286f99e361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   serializationData:
@@ -76,18 +54,42 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _udonSharpBackingUdonBehaviour: {fileID: 7942168358535608914}
-  activeStateEnter: 1
-  invertOnExit: 1
-  targets:
-  - {fileID: 7469296271783056149}
---- !u!114 &7942168358535608914
+  _udonSharpBackingUdonBehaviour: {fileID: 1328035329285933430}
+  endpoint:
+    url: https://fscdn.imoe.xyz/poster/vrcd-poster.png
+  durationStatic: 20
+  durationEase: 0.5
+  stride: 1
+  gridHorizontal: 4
+  gridVertical: 2
+  startDownloadOnEnable: 1
+  downloadDelayOnEnable: 0.5
+  targetRenderers:
+  - {fileID: 2054696359793317943}
+  timeOffsets: []
+  materialSlotIndex: 0
+  posterTexPropName: _MainTex
+  timeOffsetPropName: _TimeOffset
+  durationStaticPropName: _DurationStatic
+  durationEasePropName: _DurationEase
+  stridePropName: _Stride
+  gridHorizontalPropName: _GridHorizontal
+  gridVerticalPropName: _GridVertical
+  animators:
+  - {fileID: 3357249734656919181}
+  animatorInitializingKey: Initializing
+  animatorReadyKey: Ready
+  animatorLoadingKey: Loading
+  animatorDisplayingKey: Displaying
+  animatorHaltingKey: Halting
+  animatorErrorKey: Error
+--- !u!114 &1328035329285933430
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8244091299953640548}
+  m_GameObject: {fileID: 216071646407030518}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45115577ef41a5b4ca741ed302693907, type: 3}
@@ -100,13 +102,13 @@ MonoBehaviour:
   SynchronizePosition: 0
   AllowCollisionOwnershipTransfer: 0
   Reliable: 0
-  _syncMethod: 0
-  serializedProgramAsset: {fileID: 11400000, guid: c82c6d4fd6be1733ea448f6838e23d30, type: 2}
-  programSource: {fileID: 11400000, guid: 987d6f37521a64a44b1c2df9a633f610, type: 2}
+  _syncMethod: 2
+  serializedProgramAsset: {fileID: 11400000, guid: 2e246fb0de13e77b29daeeb34ee14843, type: 2}
+  programSource: {fileID: 11400000, guid: ef822b2ed223350b89f89c585fc9ec7d, type: 2}
   serializedPublicVariablesBytesString: Ai8AAAAAATIAAABWAFIAQwAuAFUAZABvAG4ALgBDAG8AbQBtAG8AbgAuAFUAZABvAG4AVgBhAHIAaQBhAGIAbABlAFQAYQBiAGwAZQAsACAAVgBSAEMALgBVAGQAbwBuAC4AQwBvAG0AbQBvAG4AAAAAAAYBAAAAAAAAACcBBAAAAHQAeQBwAGUAAWgAAABTAHkAcwB0AGUAbQAuAEMAbwBsAGwAZQBjAHQAaQBvAG4AcwAuAEcAZQBuAGUAcgBpAGMALgBMAGkAcwB0AGAAMQBbAFsAVgBSAEMALgBVAGQAbwBuAC4AQwBvAG0AbQBvAG4ALgBJAG4AdABlAHIAZgBhAGMAZQBzAC4ASQBVAGQAbwBuAFYAYQByAGkAYQBiAGwAZQAsACAAVgBSAEMALgBVAGQAbwBuAC4AQwBvAG0AbQBvAG4AXQBdACwAIABtAHMAYwBvAHIAbABpAGIAAQEJAAAAVgBhAHIAaQBhAGIAbABlAHMALwEAAAABaAAAAFMAeQBzAHQAZQBtAC4AQwBvAGwAbABlAGMAdABpAG8AbgBzAC4ARwBlAG4AZQByAGkAYwAuAEwAaQBzAHQAYAAxAFsAWwBWAFIAQwAuAFUAZABvAG4ALgBDAG8AbQBtAG8AbgAuAEkAbgB0AGUAcgBmAGEAYwBlAHMALgBJAFUAZABvAG4AVgBhAHIAaQBhAGIAbABlACwAIABWAFIAQwAuAFUAZABvAG4ALgBDAG8AbQBtAG8AbgBdAF0ALAAgAG0AcwBjAG8AcgBsAGkAYgABAAAABgEAAAAAAAAAAi8CAAAAAUkAAABWAFIAQwAuAFUAZABvAG4ALgBDAG8AbQBtAG8AbgAuAFUAZABvAG4AVgBhAHIAaQBhAGIAbABlAGAAMQBbAFsAUwB5AHMAdABlAG0ALgBJAG4AdAAzADIALAAgAG0AcwBjAG8AcgBsAGkAYgBdAF0ALAAgAFYAUgBDAC4AVQBkAG8AbgAuAEMAbwBtAG0AbwBuAAIAAAAGAgAAAAAAAAAnAQQAAAB0AHkAcABlAAEXAAAAUwB5AHMAdABlAG0ALgBTAHQAcgBpAG4AZwAsACAAbQBzAGMAbwByAGwAaQBiACcBCgAAAFMAeQBtAGIAbwBsAE4AYQBtAGUAAR8AAABfAF8AXwBVAGQAbwBuAFMAaABhAHIAcABCAGUAaABhAHYAaQBvAHUAcgBWAGUAcgBzAGkAbwBuAF8AXwBfACcBBAAAAHQAeQBwAGUAARYAAABTAHkAcwB0AGUAbQAuAEkAbgB0ADMAMgAsACAAbQBzAGMAbwByAGwAaQBiABcBBQAAAFYAYQBsAHUAZQACAAAABwUHBQcF
   publicVariablesUnityEngineObjects: []
   publicVariablesSerializationDataFormat: 0
---- !u!1001 &8251835845015089881
+--- !u!1001 &4349969112698276805
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -114,38 +116,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1525644511193260492, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
@@ -159,28 +129,41 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5273527490105831719, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
+      propertyPath: posterTexName
+      value: _PosterTex
+      objectReference: {fileID: 0}
+    - target: {fileID: 5273527490105831719, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
+      propertyPath: posterTexPropName
+      value: _PosterTex
+      objectReference: {fileID: 0}
+    - target: {fileID: 5273527490105831719, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
       propertyPath: serializationData.Prefab
       value: 
       objectReference: {fileID: 5273527490105831719, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
     - target: {fileID: 5698798700244490871, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
       propertyPath: m_Name
-      value: PosterDisplayTrigger
+      value: PosterDisplay-Solo-Unlit
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1540242627988766598}
+      insertIndex: 0
+      addedObject: {fileID: 1418529353836129399}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
---- !u!4 &6325487267637736088 stripped
+--- !u!4 &1806783479849241476 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2687749426372935745, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-  m_PrefabInstance: {fileID: 8251835845015089881}
+  m_PrefabInstance: {fileID: 4349969112698276805}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7469296271783056149 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1525644511193260492, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
-  m_PrefabInstance: {fileID: 8251835845015089881}
+--- !u!23 &2054696359793317943 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2368205863829214194, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
+  m_PrefabInstance: {fileID: 4349969112698276805}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3357249734656919181 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1353728632170564936, guid: 39f2bc4995223278297f5e7defeff536, type: 3}
+  m_PrefabInstance: {fileID: 4349969112698276805}
   m_PrefabAsset: {fileID: 0}
