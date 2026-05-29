@@ -17,6 +17,7 @@ Material:
   - GSAA
   - MOBILE_TONEMAP_ACES
   - SHADING_MODE_DEFAULT
+  - _EMISSION
   - _PARALLAXSTEPS_EIGHT
   m_InvalidKeywords:
   - BAKERY_NONE
@@ -250,7 +251,7 @@ Material:
     - _EaseAnimation: 7
     - _EaseFunction: 20
     - _EmissionChannel: 0
-    - _EmissionEnabled: 0
+    - _EmissionEnabled: 1
     - _EnableGSAA: 1
     - _EnableParallax: 0
     - _FlipBumpY: 0
@@ -292,7 +293,7 @@ Material:
     - _RoughnessMode: 0
     - _ShadeVertexLights: 0
     - _SmoothChannel: 3
-    - _Smoothness: 0.5
+    - _Smoothness: 0.9
     - _SmoothnessTextureChannel: 0
     - _SpecOcclusion: 0.25
     - _SpecularHighlights: 1
@@ -304,6 +305,7 @@ Material:
     - _StencilPassOp: 0
     - _StencilRef: 0
     - _StencilZFailOp: 0
+    - _Stride: 1
     - _TimeOffset: 0
     - _UVSec: 0
     - _VRCFallbackTag: 0
@@ -322,7 +324,7 @@ Material:
     - _ClothSheenColor: {r: 0.04, g: 0.04, b: 0.04, a: 1}
     - _ClothSubsurfaceColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _IdleTint: {r: 1, g: 1, b: 1, a: 1}
     - _LoadingTint: {r: 1, g: 1, b: 1, a: 1}
     - _MainTint: {r: 1, g: 1, b: 1, a: 1}
