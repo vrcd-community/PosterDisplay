@@ -83,7 +83,7 @@ Shader "Xuan25/PosterDisplay/ORL-Compiled/Standard"
         _GridHorizontal ("Grid Horizontal", Int) = 4
         _GridVertical ("Grid Vertical", Int) = 2
         _Stride ("Stride", Int) = 1
-        _CellMargin ("Cell Margin", Float) = 0.01
+        _CellMargin ("Cell Margin", Float) = 0.001
         [KeywordEnum(easeInSine, easeOutSine, easeInOutSine, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic, easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart, easeInQuint, easeOutQuint, easeInOutQuint, easeInExpo, easeOutExpo, easeInOutExpo, easeInCirc, easeOutCirc, easeInOutCirc, easeInBack, easeOutBack, easeInOutBack, easeInElastic, easeOutElastic, easeInOutElastic, easeInBounce, easeOutBounce, easeInOutBounce)]
 _EaseFunction ("Ease Function", Int) = 20
         _TimeOffset ("Time Offset", Float) = 0.0

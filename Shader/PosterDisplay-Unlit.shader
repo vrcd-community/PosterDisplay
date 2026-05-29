@@ -9,7 +9,7 @@ Shader "Xuan25/PosterDisplay/Unlit"
         _GridHorizontal ("Grid Horizontal", Int) = 4
         _GridVertical ("Grid Vertical", Int) = 2
         _Stride ("Stride", Int) = 1
-        _CellMargin ("Cell Margin", Float) = 0.01
+        _CellMargin ("Cell Margin", Float) = 0.001
         // all the ease functions
         // 0: easeInSine
         // 1: easeOutSine

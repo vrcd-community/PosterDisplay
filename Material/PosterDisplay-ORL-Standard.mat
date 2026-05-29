@@ -218,7 +218,7 @@ Material:
     - _BoxProjectionContactHardening: 0
     - _BoxProjectionContactHardeningStrength: 1
     - _BumpScale: 1
-    - _CellMargin: 0.01
+    - _CellMargin: 0.001
     - _ClearCoat: 0
     - _ClearCoatMaskChannel: 3
     - _ClearCoatSmoothness: 0.999
