@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 3d34603dbfabb62adb9f211f02978ade, type: 2}
     - target: {fileID: 7601293647059221879, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
       propertyPath: m_Name
-      value: PosterDisplay-Multi-Unlit-Strided-Offline
+      value: PosterDisplay-Multi-Strided-Unlit-Offline
       objectReference: {fileID: 0}
     - target: {fileID: 7907535333346105520, guid: dd85d7a699de3f2d6aedf52389856c89, type: 3}
       propertyPath: m_Materials.Array.data[0]

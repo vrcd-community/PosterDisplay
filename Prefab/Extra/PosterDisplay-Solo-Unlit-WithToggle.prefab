@@ -131,7 +131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8306892695470248370, guid: ec86cc3bed4da1c2e871f48ae5f214c6, type: 3}
       propertyPath: m_Name
-      value: PosterDisplay-Solo-WithToggle
+      value: PosterDisplay-Solo-Unlit-WithToggle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

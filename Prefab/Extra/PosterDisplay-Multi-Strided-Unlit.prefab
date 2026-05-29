@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2600701405082189606, guid: 7a3e2bf18d4efe7f1b5b9eb860906f53, type: 3}
       propertyPath: m_Name
-      value: PosterDisplay-Multi-Unlit-Strided
+      value: PosterDisplay-Multi-Strided-Unlit
       objectReference: {fileID: 0}
     - target: {fileID: 6026013049242648668, guid: 7a3e2bf18d4efe7f1b5b9eb860906f53, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
