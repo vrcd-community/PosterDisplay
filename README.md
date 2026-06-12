@@ -22,7 +22,10 @@
 - 社群内容轮播
 - 游戏内更新提示面板
 
----
+## 如何使用
+
+见 [Documentation](Documentation/zh-CN.md)
+
 ---
 
 This component is designed for displaying poster content in VRChat worlds. It is suitable for announcement boards, event promotion, exhibition displays, advertising spaces, information panels, and similar use cases.
@@ -46,6 +49,10 @@ The component supports both network-loaded textures and static texture assets in
 - Advertising spaces
 - Community content carousels
 - In-world update notice panels
+
+## How to Use
+
+See [Documentation](Documentation/)
 
 ## Development
 
