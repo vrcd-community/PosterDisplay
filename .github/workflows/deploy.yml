@@ -5,7 +5,7 @@ on:
       CHANGELOG:
         required: true
         type: string
-        description: Changelog for the release. Use '\\n' for new lines.
+        description: 'Changelog for the release. Use \n for new lines.'
 
 permissions:
   contents: write
@@ -78,10 +78,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Changelog
+        env:
+          CHANGELOG_INPUT: ${{ inputs.CHANGELOG }}
         run: |
-          CHANGELOG_ESCAPED="${{ inputs.CHANGELOG }}" # Capture the input
-          CHANGELOG_ESCAPED="${CHANGELOG_ESCAPED//\'/\\\'}" # Escape single quotes
-          echo -e "$CHANGELOG_ESCAPED" > CHANGELOG
+          python3 -c 'import os; print(os.environ["CHANGELOG_INPUT"].replace("\\n", "\n"), end="")' > CHANGELOG
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
