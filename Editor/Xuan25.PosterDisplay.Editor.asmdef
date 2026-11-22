@@ -3,9 +3,10 @@
     "rootNamespace": "",
     "references": [
         "Xuan25.PosterDisplay",
-        "UdonSharp.Runtime"
+        "UdonSharp.Runtime",
+        "UdonSharp.Editor"
     ],
-    "includePlatforms": [],
+    "includePlatforms": ["Editor"],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
