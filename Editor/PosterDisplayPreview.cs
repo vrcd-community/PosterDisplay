@@ -22,7 +22,9 @@ namespace PosterDisplay
         private readonly Action repaint;
         private PosterDisplayManager manager;
         private Camera drawing;
-        public bool Active { get; private set; }
+        // Locked Inspectors can show the same renderer. Only one preview may swap its material.
+        private static PosterDisplayPreview active;
+        public bool Active => active == this;
 
         public PosterDisplayPreview(Action repaint)
         {
@@ -52,7 +54,8 @@ namespace PosterDisplay
 
         public void Show(PosterDisplayManager value)
         {
-            Active = true;
+            if (active != this) active?.Stop();
+            active = this;
             manager = value;
             Refresh();
         }
@@ -88,9 +91,10 @@ namespace PosterDisplay
 
         public void Stop()
         {
-            Active = false;
+            if (Active) active = null;
             Refresh();
             SceneView.RepaintAll();
+            repaint();
         }
 
         [Serializable]

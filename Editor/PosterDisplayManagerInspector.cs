@@ -8,27 +8,36 @@ using UnityEngine.SceneManagement;
 
 namespace PosterDisplay
 {
-    public class PosterDisplayWindow : EditorWindow
+    [CustomEditor(typeof(PosterDisplayManager))]
+    internal class PosterDisplayManagerInspector : Editor
     {
-        [SerializeField] private PosterDisplayManager manager;
+        private PosterDisplayManager manager => (PosterDisplayManager)target;
         private PosterDisplayPreview preview;
-        private Vector2 scroll;
         private List<PosterDisplayLayout.Issue> issues;
-        private bool showGroups = true, showDisplay = true, showShading = true;
 
         [MenuItem("Tools/VRCD/展示位管理")]
-        public static void Open() => GetWindow<PosterDisplayWindow>("展示位管理").Show();
-
-        internal static void Open(PosterDisplayManager target)
+        private static void SelectManager()
         {
-            var window = GetWindow<PosterDisplayWindow>("展示位管理");
-            window.Bind(target);
-            window.Show();
+            var scene = SceneManager.GetActiveScene();
+            var existing = Selection.activeGameObject?.GetComponentInParent<PosterDisplayManager>();
+            if (!existing || existing.gameObject.scene != scene)
+                existing = PosterDisplayLayout.Components<PosterDisplayManager>(scene).FirstOrDefault();
+            if (!existing)
+            {
+                var go = new GameObject("Poster Display Manager");
+                existing = go.AddComponent<PosterDisplayManager>();
+                Undo.RegisterCreatedObjectUndo(go, "创建展示位管理对象");
+            }
+            Selection.activeGameObject = existing.gameObject;
+            EditorGUIUtility.PingObject(existing.gameObject);
         }
+
+        [MenuItem("Tools/VRCD/展示位管理", true)]
+        private static bool CanSelectManager() => !EditorApplication.isPlayingOrWillChangePlaymode &&
+            PrefabStageUtility.GetCurrentPrefabStage() == null && SceneManager.GetActiveScene().isLoaded;
 
         private void OnEnable()
         {
-            minSize = new Vector2(370, 320);
             preview = new PosterDisplayPreview(Repaint);
             Undo.undoRedoPerformed += Changed;
             EditorApplication.hierarchyChanged += Changed;
@@ -49,13 +58,6 @@ namespace PosterDisplay
             Changed();
         }
 
-        private void Bind(PosterDisplayManager target)
-        {
-            preview?.Stop();
-            manager = target;
-            Changed();
-        }
-
         private void Changed()
         {
             issues = null;
@@ -72,52 +74,24 @@ namespace PosterDisplay
             Changed();
         }
 
-        private void OnGUI()
+        public override void OnInspectorGUI()
         {
-            if (EditorApplication.isPlayingOrWillChangePlaymode || PrefabStageUtility.GetCurrentPrefabStage() != null)
+            var scene = manager.gameObject.scene;
+            if (EditorApplication.isPlayingOrWillChangePlaymode || !scene.IsValid() || !scene.isLoaded ||
+                PrefabStageUtility.GetPrefabStage(manager.gameObject) != null)
             {
                 EditorGUILayout.HelpBox("请在 Scene 的 Edit Mode 中管理展示位。", MessageType.Info);
                 return;
             }
-            var scene = SceneManager.GetActiveScene();
-            if (!scene.IsValid() || !scene.isLoaded) return;
-            if (!manager || manager.gameObject.scene != scene)
-            {
-                var first = PosterDisplayLayout.Components<PosterDisplayManager>(scene).FirstOrDefault();
-                if (manager != first) Bind(first);
-            }
-            if (!manager)
-            {
-                if (GUILayout.Button("在当前 Scene 创建展示位管理对象"))
-                {
-                    var go = new GameObject("Poster Display Manager");
-                    var target = go.AddComponent<PosterDisplayManager>();
-                    Undo.RegisterCreatedObjectUndo(go, "创建展示位管理对象");
-                    Selection.activeGameObject = go;
-                    Bind(target);
-                }
-                return;
-            }
-
-            var selected = (PosterDisplayManager)EditorGUILayout.ObjectField("管理对象", manager, typeof(PosterDisplayManager), true);
-            if (selected && selected != manager && selected.gameObject.scene == scene) Bind(selected);
-            issues = issues ?? PosterDisplayLayout.Validate(scene);
-            using (var view = new EditorGUILayout.ScrollViewScope(scroll))
-            {
-                scroll = view.scrollPosition;
-                showGroups = EditorGUILayout.Foldout(showGroups, "管理海报", true);
-                if (showGroups)
-                {
-                    for (int g = 0; g < manager.groups.Count; g++) DrawGroup(g);
-                    if (GUILayout.Button("添加展示位")) Edit("添加展示位", () => manager.groups.Add(new PosterDisplayGroup()));
-                }
-                EditorGUILayout.Space();
-                showDisplay = EditorGUILayout.Foldout(showDisplay, "显示设置", true);
-                if (showDisplay) DrawDisplay();
-                EditorGUILayout.Space();
-                showShading = EditorGUILayout.Foldout(showShading, "着色设置", true);
-                if (showShading) DrawShading();
-            }
+            EditorGUILayout.LabelField("管理海报", EditorStyles.boldLabel);
+            for (int g = 0; g < manager.groups.Count; g++) DrawGroup(g);
+            if (GUILayout.Button("添加展示位")) Edit("添加展示位", () => manager.groups.Add(new PosterDisplayGroup()));
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("显示设置", EditorStyles.boldLabel);
+            DrawDisplay();
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("着色设置", EditorStyles.boldLabel);
+            DrawShading();
             if (GUILayout.Button(preview.Active ? "停止预览" : "在 Scene View 预览"))
             {
                 if (preview.Active) preview.Stop();
@@ -160,15 +134,11 @@ namespace PosterDisplay
                     EditorGUILayout.HelpBox(issue.message, issue.error ? MessageType.Error : MessageType.Warning);
 
                 for (int i = 0; i < group.elements.Count; i++) DrawElement(group, i);
-                using (new EditorGUILayout.HorizontalScope())
-                {
-                    if (GUILayout.Button("新建 Element")) CreateElement(group);
-                    var selected = Selection.activeGameObject;
-                    using (new EditorGUI.DisabledScope(!selected || selected.scene != manager.gameObject.scene ||
-                        !selected.GetComponent<PosterDisplayElement>() || group.elements.Contains(selected)))
-                        if (GUILayout.Button("加入所选 Element"))
-                            Edit("加入所选 Element", () => group.elements.Add(selected));
-                }
+                if (GUILayout.Button("新建 Element")) CreateElement(group);
+                var addition = (PosterDisplayElement)EditorGUILayout.ObjectField("加入已有 Element", null,
+                    typeof(PosterDisplayElement), true);
+                if (addition && addition.gameObject.scene == manager.gameObject.scene && !group.elements.Contains(addition.gameObject))
+                    Edit("加入已有 Element", () => group.elements.Add(addition.gameObject));
             }
         }
 
@@ -194,14 +164,38 @@ namespace PosterDisplay
                     if (GUILayout.Button("↓", GUILayout.Width(24))) MoveElement(group, index, index + 1);
                 if (GUILayout.Button("−", GUILayout.Width(24)))
                 {
-                    int choice = element ? EditorUtility.DisplayDialogComplex("移除 Element",
-                        "可以同时删除场景对象，或仅移除该展示位中的引用。", "仅移除引用", "取消", "删除对象") : 0;
-                    if (choice == 1) return;
-                    Edit("移除 Element", () => group.elements.RemoveAt(index));
-                    if (choice == 2) Undo.DestroyObjectImmediate(element);
+                    DeleteElement(group, index);
                     GUIUtility.ExitGUI();
                 }
             }
+        }
+
+        private void DeleteElement(PosterDisplayGroup group, int index)
+        {
+            var element = group.elements[index];
+            var scene = manager.gameObject.scene;
+            if (!element || element.scene != scene || !element.GetComponent<PosterDisplayElement>() ||
+                manager.transform.IsChildOf(element.transform))
+            {
+                Edit("删除 Element", () => group.elements.RemoveAt(index));
+                return;
+            }
+
+            // Removing a parent also destroys its children. Include their bindings in the same Undo.
+            bool WillBeDestroyed(GameObject obj) => obj && obj.transform.IsChildOf(element.transform);
+            Undo.IncrementCurrentGroup();
+            int undo = Undo.GetCurrentGroup();
+            Undo.SetCurrentGroupName("删除 Element");
+            foreach (var owner in PosterDisplayLayout.Components<PosterDisplayManager>(scene))
+            {
+                if (!owner.groups.Any(slot => slot.elements.Exists(WillBeDestroyed))) continue;
+                Undo.RegisterCompleteObjectUndo(owner, "删除 Element");
+                foreach (var slot in owner.groups) slot.elements.RemoveAll(WillBeDestroyed);
+                PrefabUtility.RecordPrefabInstancePropertyModifications(owner);
+            }
+            Undo.DestroyObjectImmediate(element);
+            Undo.CollapseUndoOperations(undo);
+            Changed();
         }
 
         private void MoveElement(PosterDisplayGroup group, int from, int to)
@@ -265,12 +259,4 @@ namespace PosterDisplay
         }
     }
 
-    [CustomEditor(typeof(PosterDisplayManager))]
-    internal class PosterDisplayManagerInspector : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            if (GUILayout.Button("打开展示位管理")) PosterDisplayWindow.Open((PosterDisplayManager)target);
-        }
-    }
 }

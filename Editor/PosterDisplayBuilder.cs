@@ -34,7 +34,7 @@ namespace PosterDisplay
         public void OnProcessScene(Scene scene, BuildReport report)
         {
             if (!CheckScene(scene, true))
-                throw new BuildFailedException("请在展示位管理窗口修复配置错误后再 Build。");
+                throw new BuildFailedException("请在展示位管理对象的 Inspector 中修复配置错误后再 Build。");
 
             foreach (var controller in PosterDisplayLayout.Components<PosterDisplayController>(scene))
                 controller.ClearMainTexture();
